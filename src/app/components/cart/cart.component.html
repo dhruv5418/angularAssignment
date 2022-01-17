@@ -1,0 +1,110 @@
+<body class="class1">
+  <h2>Cart</h2>
+  <button
+    class="btn btn-primary"
+    style="margin: 8px; float: right"
+    [routerLink]="['/products/' + cart.id]"
+  >
+    <i class="bi bi-shop"></i> Continue Shipping
+  </button>
+  <button
+    class="btn btn-primary"
+    style="margin: 8px; float: right"
+    (click)="clearCart()"
+  >
+    <i class="bi bi-x-square"></i> Clear Cart
+  </button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <th scope="row">{{ product.id }}</th>
+        <td>
+          {{ product.name }}
+        </td>
+        <td>{{ product.price | number: "1.2-2" | currency }}</td>
+        <td>
+          <button
+            class="btn btn-primary"
+            style="margin-right: 2px"
+            (click)="removeProduct(product.id)"
+          >
+            <i class="bi bi-x-circle"></i>
+            Remove Product
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-left: 35px">Total:-{{ cart.total | currency: "CAD" }}</h3>
+  <br />
+
+  <form
+    #form="ngForm"
+    style="margin-left: 35px; margin-bottom: 70px; width: 25%"
+    [hidden]="noProduct"
+  >
+    <div class="form-group">
+      <label for="customerName">Cutomer Name:-</label>
+      <input
+        ngModel
+        type="text"
+        #customerName="ngModel"
+        required
+        name="customerName"
+        class="form-control"
+        id="customerName"
+        placeholder="Enter Customer Name"
+      />
+    </div>
+    <div
+      class="alert alert-danger"
+      *ngIf="!customerName.valid && customerName.touched"
+    >
+      <div *ngIf="customerName.errors?.['required']">
+        Customer name is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Id:-</label>
+      <input
+        id="email"
+        ngModel
+        required
+        name="email"
+        #email="ngModel"
+        appEmailValidator
+        type="email"
+        class="form-control"
+        placeholder="Enter Email Id"
+      />
+    </div>
+    <div class="alert alert-danger" *ngIf="!email.valid && email.touched">
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['invalidFdmEmail']">
+        Not valid @gmail.com email.
+      </div>
+      <div *ngIf="email.errors?.['invalidEmail']">
+        Not a valid email address.
+      </div>
+    </div>
+    <br />
+    <button
+      type="submit"
+      style="margin-top: 5px"
+      class="btn btn-primary"
+      [disabled]="!form.valid"
+      (click)="checkout(form.value)"
+    >
+      <i class="bi bi-cart-check"></i> Checkout
+    </button>
+  </form>
+</body>

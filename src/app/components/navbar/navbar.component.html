@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink=""> Shopify </a>
+  <button
+    class="navbar-toggler"
+    (click)="collapse = !collapse"
+    type="button"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-collapse" (click)="collapse = true" [hidden]="collapse">
+    <ul class="navbar-nav mr-auto" [hidden]="userType">
+      <!-- <li class="nav-item">
+        <a class="nav-link" routerLink=""
+          >Home <span class="sr-only">(current)</span></a
+        >
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-item nav-link" (click)="openProducts()">Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-item nav-link" (click)="openCart()"
+          ><i class="bi bi-cart3"></i>Cart</a
+        >
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-auto" [hidden]="!userType">
+      <li class="nav-item">
+        <a class="nav-item nav-link" routerLink="/manage">Manage Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-item nav-link" routerLink="/addproduct">Add Product</a>
+      </li>
+    </ul>
+    <button
+      class="btn btn-outline-success my-2 my-sm-0"
+      type="submit"
+      [textContent]="role"
+      (click)="changeRole()"
+    ></button>
+  </div>
+</nav>

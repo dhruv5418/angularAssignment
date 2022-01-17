@@ -1,0 +1,52 @@
+<body>
+  <h3>Update Product</h3>
+  <form #form="ngForm" [formGroup]="productForm">
+    <div class="form-group">
+      <label for="name">Product Name</label>
+      <input
+        formControlName="name"
+        type="text"
+        class="form-control"
+        placeholder="Enter Name"
+      />
+      <div class="alert alert-danger" *ngIf="!name.valid && name.touched">
+        <div *ngIf="name.errors?.['required']">Product name is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Product Price</label>
+      <input
+        required
+        type="number"
+        formControlName="price"
+        class="form-control"
+        name="price"
+        id="price"
+        placeholder="Enter price"
+      />
+      <div class="alert alert-danger" *ngIf="!price.valid && price.touched">
+        <div *ngIf="price.errors?.['required']">Product price is required</div>
+      </div>
+    </div>
+    <br />
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      (click)="updateProduct(form.value)"
+      [disabled]="!form.valid"
+    >
+      Update
+    </button>
+    <button
+      class="btn btn-danger"
+      style="margin-left: 5px"
+      [routerLink]="['/manage']"
+    >
+      Cancel
+    </button>
+  </form>
+
+  {{ form.value | json }}
+</body>

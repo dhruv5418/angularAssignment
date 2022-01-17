@@ -1,0 +1,38 @@
+<body class="class1">
+  <h3>Product details</h3>
+  <button
+    class="btn btn-primary"
+    style="margin: 8px; float: right"
+    (click)="goToCart()"
+  >
+    <i class="bi bi-cart3"></i> View Cart
+  </button>
+  <table class="table" style="margin-bottom: 60px">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Add to cart</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <th scope="row">{{ product.id }}</th>
+        <td>
+          {{ product.name }}
+        </td>
+        <td>{{ product.price | currency }}</td>
+        <td>
+          <button
+            class="btn btn-primary"
+            style="margin-right: 2px"
+            (click)="addToCart(product.id)"
+          >
+            Add to cart
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
